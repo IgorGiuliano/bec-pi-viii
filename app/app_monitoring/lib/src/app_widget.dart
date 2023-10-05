@@ -17,9 +17,10 @@ class _AppWidgetState extends State<AppWidget> {
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp.router(
-          title: 'Braço Robótico',
-          routeInformationParser: Modular.routeInformationParser,
-          routerDelegate: Modular.routerDelegate,
+          routerConfig: Modular.routerConfig,
+          // title: 'Braço Robótico',
+          // routeInformationParser: Modular.routeInformationParser,
+          // routerDelegate: Modular.routerDelegate,
         );
       },
     );
