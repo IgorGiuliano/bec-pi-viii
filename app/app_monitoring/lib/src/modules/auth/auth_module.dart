@@ -1,9 +1,12 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class CoreModule extends Module {
+class AuthModule extends Module{
   @override
   void exportedBinds(Injector i) {
-    i.add(Dio.new);
+    
+  }
+
+  @override
+  void binds(Injector i) {
   }
 }

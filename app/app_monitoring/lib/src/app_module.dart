@@ -1,23 +1,15 @@
-import 'package:app_monitoring/modules/monitoring/home.dart';
-import 'package:app_monitoring/modules/splash_screen/splash_page.dart';
-import 'package:app_monitoring/src/routes.dart';
+import 'package:app_monitoring/src/modules/auth/auth_module.dart';
+import 'package:app_monitoring/src/modules/monitoring/monitoring_module.dart';
+import 'package:app_monitoring/src/modules/splash_screen/splash_screen.dart';
+import 'package:app_monitoring/src/routes_moludes.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-// class AppModule extends Module {
-//   @override
-//   List<Bind> get binds => [];
-
-//   @override
-//   List<Router> get routers => [
-//     //No caso pode trocar para sua tela inicial (HomePage) em vez de Container
-//     Router(Routes.DEFAULT, child: (_, args) => HomePage())
-//   ];
-
-//   @override
-//   Widget get bootstrap => AppWidget();
-
-
-//   // void routes(RouteManager r) {
-//   //   r.child(Routes.DEFAULT, child: (_) => HomePage());
-//   // }
-// }
+class AppModule extends Module {
+  @override
+  List<Module> get imports => [AuthModule()];
+  @override
+  void routes(RouteManager r) {
+    r.child(RoutesModules.DEFAULT, child: (_) => const SplashScreen());
+    r.module(RoutesModules.MONITORING_MODULE, module: MonitoringModule());
+  }
+}

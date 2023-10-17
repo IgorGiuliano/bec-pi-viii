@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+
 class AppWidget extends StatefulWidget {
   const AppWidget({super.key});
 
@@ -18,9 +19,6 @@ class _AppWidgetState extends State<AppWidget> {
       builder: (context, child) {
         return MaterialApp.router(
           routerConfig: Modular.routerConfig,
-          // title: 'Braço Robótico',
-          // routeInformationParser: Modular.routeInformationParser,
-          // routerDelegate: Modular.routerDelegate,
         );
       },
     );
