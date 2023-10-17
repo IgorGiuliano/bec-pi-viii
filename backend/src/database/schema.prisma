@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  NORMAL
+}
+
+model User {
+  id_user String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  last_name String
+  email String @unique
+  password String
+  cpf String @unique
+  enable Boolean
+  role UserRole
+}
