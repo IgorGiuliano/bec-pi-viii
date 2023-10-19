@@ -13,20 +13,17 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   @override
-  // Widget build(BuildContext context) {
-  //   return const Placeholder();
-  // }
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3))
-        .then((_) => Modular.to.pushReplacementNamed('${RoutesModules.MONITORING_MODULE}${RoutesMonitoring.DEFAULT}'));
+    Future.delayed(const Duration(seconds: 3)).then((_) => Modular.to
+        .pushReplacementNamed(
+            '${RoutesModules.MONITORING_MODULE}${RoutesMonitoring.DEFAULT}'));
   }
 
   @override
   Widget build(BuildContext context) {
     return const Material(
-      child: Center(
-        child:CircularProgressIndicator()),
+      child: Center(child: CircularProgressIndicator()),
     );
   }
 }
