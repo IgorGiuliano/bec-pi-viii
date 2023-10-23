@@ -6,7 +6,7 @@ class MonitoringController extends ChangeNotifier {
   final MonitoringJsonPlaceholderService _service;
   MonitoringController(this._service);
 
-  var monitoring = <MonitoringModel>[];
+   MonitoringModel? monitoring;
 
   Future<void> fetchAllMonitoring() async {
     monitoring = await _service.getMonitoring();

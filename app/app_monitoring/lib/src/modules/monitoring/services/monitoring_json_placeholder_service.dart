@@ -9,9 +9,9 @@ class MonitoringJsonPlaceholderService {
 
   MonitoringJsonPlaceholderService(this.client);
 
-  Future<List<MonitoringModel>> getMonitoring() async {
+  Future<MonitoringModel> getMonitoring() async {
     final response = await client.get(url);
-    final body = response as List;
-    return body.map(MonitoringModel.fromJson).toList();
+
+    return MonitoringModel.fromJson(response);
   }
 }

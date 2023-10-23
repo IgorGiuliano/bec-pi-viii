@@ -1,6 +1,7 @@
 import 'package:app_monitoring/src/modules/monitoring/controller/monitoring_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MonitoringPage extends StatefulWidget {
   const MonitoringPage({super.key});
@@ -21,17 +22,105 @@ class _MonitoringPageState extends State<MonitoringPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF4FC3F7),
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: const Color(0xFF4FC3F7),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        backgroundColor: Colors.white,
+        child: const Icon(
+          Icons.replay_outlined,
+          color: Colors.black,
+        ),
+      ),
       body: AnimatedBuilder(
         animation: controller,
         builder: (context, child) {
-          return ListView.builder(
-            itemCount: controller.monitoring.length,
-            itemBuilder: (context, index) {
-              final monitorin = controller.monitoring[index];
-              return ListTile(
-                title: Text(monitorin.title),
-              );
-            },
+          // final monitorin = controller.monitoring;
+          return Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(top: 40.w, right: 28.w, left: 28.w),
+                child: Container(
+                  width: 307.w,
+                  height: 118.w,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(16.w),
+                      color: Colors.white),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 24.w, right: 24.w),
+                    child: Row(
+                      // crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Text(monitorin?.title ?? 'null'),
+                            Text(
+                              'APROVADOS',
+                              style: TextStyle(
+                                  fontSize: 20.w, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'REPROVADO',
+                              style: TextStyle(
+                                  fontSize: 20.w, fontWeight: FontWeight.bold),
+                            ),
+                            Text(
+                              'TOTAL',
+                              style: TextStyle(
+                                  fontSize: 20.w, fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(left: 34.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text(
+                                '150',
+                                style: TextStyle(
+                                    fontSize: 20.w,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.green),
+                              ),
+                              Text(
+                                '20',
+                                style: TextStyle(
+                                    fontSize: 20.w,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.red),
+                              ),
+                              Text(
+                                '170',
+                                style: TextStyle(
+                                    fontSize: 20.w,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: Padding(
+                  padding: EdgeInsets.only(left: 28.w, top: 220.w),
+                  child: SizedBox(
+                    width: 200.w,
+                    height: 200.w,
+                    child: Image.asset('assets/images/png/logo.png'),
+                  ),
+                ),
+              ),
+            ],
           );
         },
       ),
