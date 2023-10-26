@@ -1,6 +1,4 @@
 import 'package:app_monitoring/src/modules/monitoring/controller/monitoring_controller.dart';
-import 'package:app_monitoring/src/modules/monitoring/model/point.dart';
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -26,8 +24,22 @@ class _MonitoringPageState extends State<MonitoringPage> {
     return Scaffold(
       backgroundColor: const Color(0xFF4FC3F7),
       appBar: AppBar(
-        elevation: 0,
+        elevation: 1,
         backgroundColor: const Color(0xFF4FC3F7),
+      ),
+      endDrawer: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            width: 200.w,
+            height: 200.w,
+            child: Image.asset('assets/images/png/logo.png'),
+          ),
+          const Text(
+            '\nCentro universitário Senac\n\nPI8 - App de monitoramento\n\nRubens Prado\nIgor Giuliano\nGuilherme Chiquito\nPaulo Vaamond\nHenrique\nMateus Porto\nLucas Sampaio\n\n1.0.0 ',
+            textAlign: TextAlign.center,
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -108,17 +120,6 @@ class _MonitoringPageState extends State<MonitoringPage> {
                         ),
                       ],
                     ),
-                  ),
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 28.w, top: 220.w),
-                  child: SizedBox(
-                    width: 200.w,
-                    height: 200.w,
-                    child: Image.asset('assets/images/png/logo.png'),
                   ),
                 ),
               ),
