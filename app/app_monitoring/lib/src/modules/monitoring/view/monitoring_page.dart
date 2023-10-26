@@ -1,4 +1,6 @@
 import 'package:app_monitoring/src/modules/monitoring/controller/monitoring_controller.dart';
+import 'package:app_monitoring/src/modules/monitoring/model/point.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -60,7 +62,7 @@ class _MonitoringPageState extends State<MonitoringPage> {
                           children: [
                             // Text(monitorin?.title ?? 'null'),
                             Text(
-                              'APROVADOS',
+                              'APROVADO',
                               style: TextStyle(
                                   fontSize: 20.w, fontWeight: FontWeight.bold),
                             ),
