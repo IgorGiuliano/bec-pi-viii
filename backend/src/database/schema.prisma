@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  NORMAL
+}
+
+enum StuffColor {
+  RED
+  GREEN
+}
+
+model User {
+  id_user String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  last_name String
+  email String @unique
+  password String
+  cpf String @unique
+  enable Boolean
+  role UserRole
+}
+
+model RoboticArm {
+  id_roboticArm String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+  
+  collectedStuff CollectedStuff[]
+}
+
+model CollectedStuff {
+  id_collectedStuff String @id @default(auto()) @map("_id") @db.ObjectId
+  collect_timestamp Int
+  count Int
+  color StuffColor
+
+  robotic_arm RoboticArm @relation(fields: [roboticArm], references: [id_roboticArm])
+  roboticArm String @db.ObjectId
+}
+
+model Conveyor {
+  id_conveyor String @id @default(auto()) @map("_id") @db.ObjectId
+  name String
+
+  conveyorStatus ConveyorStatus[]
+}
+
+model ConveyorStatus {
+  id_conveyorStatus String @id @default(auto()) @map("_id") @db.ObjectId
+  status_timestamp Int
+  isPowered Boolean
+  speed Float
+
+  conveyor Conveyor @relation(fields: [conveyorId], references: [id_conveyor])
+  conveyorId String @db.ObjectId
+}
