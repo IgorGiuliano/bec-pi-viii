@@ -36,7 +36,7 @@ class _MonitoringPageState extends State<MonitoringPage> {
             child: Image.asset('assets/images/png/logo.png'),
           ),
           const Text(
-            '\nCentro universitário Senac\n\nPI8 - App de monitoramento\n\nRubens Prado\nIgor Giuliano\nGuilherme Chiquito\nPaulo Vaamond\nHenrique\nMateus Porto\nLucas Sampaio\n\n1.0.0 ',
+            '\nCentro Universitário Senac\n\nPI8 - App de monitoramento\n\nRubens Prado\nIgor Giuliano\nGuilherme Chiquito\nPaulo Vaamond\nHenrique\nMateus Porto\nLucas Sampaio\n\n1.0.0 ',
             textAlign: TextAlign.center,
           )
         ],
