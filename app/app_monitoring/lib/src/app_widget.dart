@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class AppWidget extends StatefulWidget {
   const AppWidget({super.key});
 
@@ -18,6 +17,7 @@ class _AppWidgetState extends State<AppWidget> {
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp.router(
+          title: 'ReB',
           routerConfig: Modular.routerConfig,
         );
       },
