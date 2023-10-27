@@ -1,14 +1,21 @@
 import 'dotenv/config';
-import express from 'express';
-import cors from 'cors';
-import { errorHandler } from '@middlewares/errorHandler';
+import { NestFactory } from '@nestjs/core';
+import { AppModule } from './modules/app/app.module';
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
-const app = express();
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+  const config = new DocumentBuilder()
+    .setTitle('Projeto Brasteira (braço-esteira)')
+    .setDescription('API do projeto Brasteira (nome a definir)')
+    .setVersion('0.01')
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('doc', app, document);
 
-app.use(cors());
-app.use(express.json());
-app.use(errorHandler);
-
-app.listen((process.env.PORT || 80), () => {
+  app.enableCors();
+  await app.listen(process.env.PORT || 80, () => {
     console.log(`Server running on port ${process.env.PORT || 80}`);
-});
+  });
+}
+bootstrap();
