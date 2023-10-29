@@ -34,7 +34,7 @@ export class RoboticArmController {
 
   @Get('/find-roboticarm/:id')
   findOne(@Param('id') id: string) {
-    return this.roboticArmService.findOne(+id);
+    return this.roboticArmService.findOne(id);
   }
 
   @Patch('/update-roboticarm/:id')
@@ -42,11 +42,11 @@ export class RoboticArmController {
     @Param('id') id: string,
     @Body() updateRoboticArmDto: UpdateRoboticArmDto,
   ) {
-    return this.roboticArmService.update(+id, updateRoboticArmDto);
+    return this.roboticArmService.update(id, updateRoboticArmDto);
   }
 
   @Delete('/disable-roboticarm/:id')
   remove(@Param('id') id: string) {
-    return this.roboticArmService.remove(+id);
+    return this.roboticArmService.remove(id);
   }
 }
