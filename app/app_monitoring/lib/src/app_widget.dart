@@ -17,6 +17,7 @@ class _AppWidgetState extends State<AppWidget> {
       minTextAdapt: true,
       builder: (context, child) {
         return MaterialApp.router(
+          debugShowCheckedModeBanner: false,
           title: 'ReB',
           routerConfig: Modular.routerConfig,
         );

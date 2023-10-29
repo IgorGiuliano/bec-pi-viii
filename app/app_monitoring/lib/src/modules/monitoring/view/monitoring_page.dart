@@ -203,7 +203,7 @@ class _MonitoringPageState extends State<MonitoringPage> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 60.w, right: 28.w, left: 28.w),
+                  padding: EdgeInsets.only(top: 28.w, right: 28.w, left: 28.w),
                   child: Container(
                     height: 300.h,
                     decoration: BoxDecoration(
