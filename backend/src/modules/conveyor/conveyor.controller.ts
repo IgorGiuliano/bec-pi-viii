@@ -1,4 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  HttpCode,
+} from '@nestjs/common';
 import { ConveyorService } from './conveyor.service';
 import { ApiBody, ApiConsumes, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateConveyorDto } from './dto/create-conveyor.dto';
@@ -9,27 +18,35 @@ import { UpdateConveyorDto } from './dto/update-conveyor.dto';
 export class ConveyorController {
   constructor(private readonly conveyorService: ConveyorService) {}
 
-  @Post()
+  @ApiConsumes('application/json')
+  @ApiBody({ type: CreateConveyorDto })
+  @ApiResponse({ status: 200, description: 'Sucesso ao registrar' })
+  @Post('/create-conveyor')
+  @HttpCode(200)
   create(@Body() createConveyorDto: CreateConveyorDto) {
     return this.conveyorService.create(createConveyorDto);
   }
 
-  @Get()
+  @Get('/list-conveyor')
+  @HttpCode(200)
   findAll() {
     return this.conveyorService.findAll();
   }
 
-  @Get(':id')
+  @Get('/find-conveyor/:id')
   findOne(@Param('id') id: string) {
     return this.conveyorService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateConveyorDto: UpdateConveyorDto) {
+  @Patch('/find-conveyor/:id')
+  update(
+    @Param('id') id: string,
+    @Body() updateConveyorDto: UpdateConveyorDto,
+  ) {
     return this.conveyorService.update(+id, updateConveyorDto);
   }
 
-  @Delete(':id')
+  @Delete('/disable-conveyor/:id')
   remove(@Param('id') id: string) {
     return this.conveyorService.remove(+id);
   }

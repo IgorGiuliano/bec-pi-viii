@@ -1,4 +1,6 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateConveyorDto } from './create-conveyor.dto';
+import { ApiProperty } from '@nestjs/swagger';
 
-export class UpdateConveyorDto extends PartialType(CreateConveyorDto) {}
+export class UpdateConveyorDto {
+  @ApiProperty()
+  name: string;
+}
