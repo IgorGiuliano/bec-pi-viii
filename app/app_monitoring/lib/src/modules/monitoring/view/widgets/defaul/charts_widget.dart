@@ -55,7 +55,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
       padding:
           const EdgeInsets.only(top: 28, right: 28, left: 28, bottom: 28).w,
       child: Container(
-        height: 220.w,
+        height: 300.w,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16), color: Colors.white),
         child: Padding(
