@@ -42,26 +42,32 @@ class _SplashScreenState extends State<SplashScreen> {
             end: Alignment.bottomCenter,
           ),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-                width: 200.w,
-                height: 200.w,
-                child: SvgPicture.asset('assets/images/svg/logo.svg')),
-            Padding(
-              padding: EdgeInsets.only(top: 48.w),
-              child: Text(
-                'Roller&Braceta',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 20.w,
-                    fontStyle: FontStyle.italic),
-              ),
-            )
-          ],
-        ),
+        child: LayoutBuilder(builder: (context, constraints) {
+          final bool isMobile = constraints.maxWidth < 600;
+
+          return isMobile
+              ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                        width: 200.w,
+                        height: 200.w,
+                        child: SvgPicture.asset('assets/images/svg/logo.svg')),
+                    Padding(
+                      padding: EdgeInsets.only(top: 48.w),
+                      child: Text(
+                        'Roller&Braceta',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20.w,
+                            fontStyle: FontStyle.italic),
+                      ),
+                    )
+                  ],
+                )
+              : Container();
+        }),
       ),
     );
   }

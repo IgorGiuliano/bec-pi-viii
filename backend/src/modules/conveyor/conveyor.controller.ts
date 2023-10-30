@@ -35,7 +35,7 @@ export class ConveyorController {
 
   @Get('/find-conveyor/:id')
   findOne(@Param('id') id: string) {
-    return this.conveyorService.findOne(+id);
+    return this.conveyorService.findOne(id);
   }
 
   @Patch('/find-conveyor/:id')
@@ -43,11 +43,11 @@ export class ConveyorController {
     @Param('id') id: string,
     @Body() updateConveyorDto: UpdateConveyorDto,
   ) {
-    return this.conveyorService.update(+id, updateConveyorDto);
+    return this.conveyorService.update(id, updateConveyorDto);
   }
 
   @Delete('/disable-conveyor/:id')
   remove(@Param('id') id: string) {
-    return this.conveyorService.remove(+id);
+    return this.conveyorService.remove(id);
   }
 }

@@ -4,23 +4,74 @@ import { UpdateConveyorDto } from './dto/update-conveyor.dto';
 
 @Injectable()
 export class ConveyorService {
-  create(createConveyorDto: CreateConveyorDto) {
-    return 'This action adds a new conveyor';
+  async create(createConveyorDto: CreateConveyorDto) {
+    const { name } = createConveyorDto;
+
+    const conveyorExists = await prisma.conveyor.findFirst({
+      where: {
+        name,
+      },
+    });
+
+    if (conveyorExists) {
+      throw new Error('A esteira já existe');
+    }
+
+    const conveyor = await prisma.conveyor.create({
+      data: {
+        name,
+      },
+    });
+
+    return conveyor;
   }
 
-  findAll() {
-    return `This action returns all conveyor`;
+  async findAll() {
+    const conveyor = await prisma.conveyor.findMany({
+      select: {
+        id_conveyor: true,
+        name: true,
+      },
+    });
+    return conveyor;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} conveyor`;
+  async findOne(id: string) {
+    const conveyor = await prisma.conveyor.findFirst({
+      where: {
+        id_conveyor: id,
+      },
+    });
+
+    if (!conveyor) {
+      throw new Error('Esteira inexistente');
+    }
+
+    return conveyor;
   }
 
-  update(id: number, updateConveyorDto: UpdateConveyorDto) {
-    return `This action updates a #${id} conveyor`;
+  async update(id: string, data: UpdateConveyorDto) {
+    const { name } = data;
+
+    const conveyor = await prisma.conveyor.update({
+      where: {
+        id_conveyor: id,
+      },
+      data: {
+        name,
+      },
+    });
+
+    return conveyor;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} conveyor`;
+  async remove(id: string) {
+    const conveyor = await prisma.conveyor.delete({
+      where: {
+        id_conveyor: id,
+      },
+    });
+
+    return conveyor;
   }
 }
