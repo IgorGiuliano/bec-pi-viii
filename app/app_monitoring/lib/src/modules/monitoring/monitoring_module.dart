@@ -24,9 +24,6 @@ class MonitoringModule extends Module {
 
   @override
   void routes(RouteManager r) {
-    r.child(
-        transition: TransitionType.rightToLeftWithFade,
-        RoutesMonitoring.DEFAULT,
-        child: (_) => const MonitoringPage());
+    r.child(RoutesMonitoring.DEFAULT, child: (_) => const MonitoringPage());
   }
 }
