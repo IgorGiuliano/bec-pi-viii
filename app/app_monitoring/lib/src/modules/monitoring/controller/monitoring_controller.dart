@@ -11,9 +11,9 @@ class MonitoringController extends ChangeNotifier {
 
   MonitoringModel? monitoring;
 
-  List<FlSpot> spots2 = [];
+  List<FlSpot> spots2 = [FlSpot(0, 4)];
 
-  List<FlSpot> spots3 = [];
+  List<FlSpot> spots3 = [FlSpot(0, 2)];
 
   Future<void> fetchAllMonitoring() async {
     monitoring = await _service.getMonitoring();
@@ -41,6 +41,4 @@ class MonitoringController extends ChangeNotifier {
     }
     return minY;
   }
-
-  
 }
