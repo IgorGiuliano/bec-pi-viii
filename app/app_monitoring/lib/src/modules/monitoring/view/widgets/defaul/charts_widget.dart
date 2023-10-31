@@ -52,8 +52,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          const EdgeInsets.only(top: 28, right: 28, left: 28, bottom: 28).w,
+      padding: EdgeInsets.only(top: 28, right: 28.w, left: 28.w, bottom: 28.w),
       child: Container(
         height: 300.w,
         decoration: BoxDecoration(
