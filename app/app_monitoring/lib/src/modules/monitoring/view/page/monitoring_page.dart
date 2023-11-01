@@ -12,7 +12,6 @@ class MonitoringPage extends StatefulWidget {
 }
 
 class _MonitoringPageState extends State<MonitoringPage> {
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -20,9 +19,8 @@ class _MonitoringPageState extends State<MonitoringPage> {
         final bool isMobile = constraints.maxWidth < 600;
         return Scaffold(
             appBar: AppBar(
-              elevation: 1,
-              backgroundColor: const Color(0xFF4FC3F7),
-            ),
+                elevation: 1, backgroundColor: Colors.red //Color(0xFF4FC3F7),
+                ),
             endDrawer: isMobile ? const DrawerWidget() : null,
             floatingActionButton:
                 isMobile ? const MobileFloatingActionButtonWidget() : null,
