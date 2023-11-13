@@ -74,4 +74,43 @@ export class RoboticArmService {
 
     return roboticArm;
   }
+
+  async countDayRecords(id: string) {
+    const total = await prisma.collectedStuff.aggregate({
+      _sum: {
+        count: true,
+      },
+      where: {
+        id_collectedStuff: id,
+      },
+    });
+
+    const records = await prisma.collectedStuff.groupBy({
+      by: ['color'],
+      _sum: {
+        count: true,
+      },
+      orderBy: {
+        color: 'asc',
+      },
+    });
+
+    return [total, records];
+  }
+
+  async lastTwentyRecords(id: string) {
+    const lastRecords = await prisma.collectedStuff.findMany({
+      select: {
+        count: true,
+        color: true,
+        robotic_arm: true,
+      },
+      orderBy: {
+        collect_timestamp: 'asc',
+      },
+      take: 20,
+    });
+
+    return lastRecords;
+  }
 }

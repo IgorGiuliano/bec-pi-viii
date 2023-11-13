@@ -37,6 +37,16 @@ export class RoboticArmController {
     return this.roboticArmService.findOne(id);
   }
 
+  @Get('/count-day-records/:id')
+  countDayReccords(@Param('id') id: string) {
+    return this.roboticArmService.countDayRecords(id);
+  }
+
+  @Get('/get-last-twenty/:id')
+  lastTwetyRecords(@Param('id') id: string) {
+    return this.roboticArmService.lastTwentyRecords(id);
+  }
+
   @Patch('/update-roboticarm/:id')
   update(
     @Param('id') id: string,
