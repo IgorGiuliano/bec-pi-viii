@@ -4,7 +4,7 @@ import 'package:app_monitoring/src/modules/monitoring/controller/monitoring_cont
 import 'package:app_monitoring/src/modules/monitoring/services/monitoring_dio_client_implementation.dart';
 import 'package:app_monitoring/src/modules/monitoring/services/monitoring_http_client_abstract.dart';
 import 'package:app_monitoring/src/modules/monitoring/services/monitoring_json_placeholder_service.dart';
-import 'package:app_monitoring/src/modules/monitoring/view/monitoring_page.dart';
+import 'package:app_monitoring/src/modules/monitoring/view/page/monitoring_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import 'routes_monitoring.dart';
