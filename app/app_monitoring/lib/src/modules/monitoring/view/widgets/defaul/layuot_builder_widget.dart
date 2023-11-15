@@ -31,7 +31,9 @@ class _LayoutBuilderWidgetState extends State<LayoutBuilderWidget> {
         return LayoutBuilder(
           builder: (context, constrains) {
             final bool isMobile = constrains.maxWidth < 600;
-            return isMobile ? const MobilePage() : const WebPage();
+            return isMobile
+                ? const MobilePage()
+                : const SingleChildScrollView(child: WebPage());
           },
         );
       },
