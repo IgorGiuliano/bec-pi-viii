@@ -6,7 +6,7 @@ import '../../../controller/monitoring_controller.dart';
 import '../mobile/mobile_page.dart';
 
 class LayoutBuilderWidget extends StatefulWidget {
-  LayoutBuilderWidget({
+  const LayoutBuilderWidget({
     super.key,
   });
 
@@ -17,6 +17,7 @@ class LayoutBuilderWidget extends StatefulWidget {
 class _LayoutBuilderWidgetState extends State<LayoutBuilderWidget> {
   final controller = Modular.get<MonitoringController>();
 
+  @override
   void initState() {
     super.initState();
     controller.fetchAllMonitoring();
