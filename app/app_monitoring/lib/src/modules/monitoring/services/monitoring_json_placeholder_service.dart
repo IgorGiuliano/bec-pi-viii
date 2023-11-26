@@ -1,17 +1,16 @@
-import 'package:app_monitoring/src/modules/monitoring/model/monitoring_model.dart';
-
+import '../model/data_check_list_model.dart';
 import 'monitoring_http_client_abstract.dart';
 
-const url = 'https://jsonplaceholder.typicode.com/todos/1';
+const url = 'https://api-robotinic.onrender.com/robotic-arm/count-day-records';
 
 class MonitoringJsonPlaceholderService {
   final MonitoringHttpClientAbstract client;
 
   MonitoringJsonPlaceholderService(this.client);
 
-  Future<MonitoringModel> getMonitoring() async {
+  Future<DataCheckListModel> getMonitoring() async {
     final response = await client.get(url);
 
-    return MonitoringModel.fromJson(response);
+    return DataCheckListModel.fromJson(response);
   }
 }

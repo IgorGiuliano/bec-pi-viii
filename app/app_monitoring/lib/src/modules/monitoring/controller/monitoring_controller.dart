@@ -1,15 +1,16 @@
 import 'dart:math';
 
-import 'package:app_monitoring/src/modules/monitoring/model/monitoring_model.dart';
 import 'package:app_monitoring/src/modules/monitoring/services/monitoring_json_placeholder_service.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
+
+import '../model/data_check_list_model.dart';
 
 class MonitoringController extends ChangeNotifier {
   final MonitoringJsonPlaceholderService _service;
   MonitoringController(this._service);
 
-  MonitoringModel? monitoring;
+  DataCheckListModel? monitoring;
 
   List<FlSpot> spots2 = [FlSpot(0, 4)];
 
