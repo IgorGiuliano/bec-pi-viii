@@ -25,7 +25,7 @@ class _MonitoringPageState extends State<MonitoringPage> {
             endDrawer: isMobile ? const DrawerWidget() : null,
             floatingActionButton:
                 isMobile ? const MobileFloatingActionButtonWidget() : null,
-            body: LayoutBuilderWidget());
+            body: const LayoutBuilderWidget());
       },
     );
   }
