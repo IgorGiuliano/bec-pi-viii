@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateConveyorDto } from './dto/create-conveyor.dto';
 import { UpdateConveyorDto } from './dto/update-conveyor.dto';
+import { prisma } from '../../database/database';
 
 @Injectable()
 export class ConveyorService {

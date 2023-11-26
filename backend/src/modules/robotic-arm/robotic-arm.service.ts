@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRoboticArmDto } from './dto/create-robotic-arm.dto';
 import { UpdateRoboticArmDto } from './dto/update-robotic-arm.dto';
+import { prisma } from '../../database/database';
 
 @Injectable()
 export class RoboticArmService {
