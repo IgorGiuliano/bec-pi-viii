@@ -75,13 +75,10 @@ export class RoboticArmService {
     return roboticArm;
   }
 
-  async countDayRecords(id: string) {
+  async countDayRecords() {
     const total = await prisma.collectedStuff.aggregate({
       _sum: {
         count: true,
-      },
-      where: {
-        id_collectedStuff: id,
       },
     });
 
@@ -98,12 +95,13 @@ export class RoboticArmService {
     return [total, records];
   }
 
-  async lastTwentyRecords(id: string) {
+  async lastTwentyRecords() {
     const lastRecords = await prisma.collectedStuff.findMany({
       select: {
         count: true,
         color: true,
         robotic_arm: true,
+        collect_timestamp: true,
       },
       orderBy: {
         collect_timestamp: 'asc',
