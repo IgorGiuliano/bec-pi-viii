@@ -6,7 +6,11 @@ class MonitoringDioClientImplementation
   final dio = Dio();
   @override
   Future get(String url) async {
-    final response = await dio.get(url);
-    return response.data;
+    try {
+      final response = await dio.get(url);
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
   }
 }
