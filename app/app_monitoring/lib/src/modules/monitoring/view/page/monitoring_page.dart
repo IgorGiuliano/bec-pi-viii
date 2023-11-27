@@ -12,7 +12,6 @@ class MonitoringPage extends StatefulWidget {
 }
 
 class _MonitoringPageState extends State<MonitoringPage> {
-
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -24,9 +23,9 @@ class _MonitoringPageState extends State<MonitoringPage> {
               backgroundColor: const Color(0xFF4FC3F7),
             ),
             endDrawer: isMobile ? const DrawerWidget() : null,
-            floatingActionButton:
-                isMobile ? const MobileFloatingActionButtonWidget() : null,
-            body: LayoutBuilderWidget());
+            // floatingActionButton:
+            //     isMobile ? const MobileFloatingActionButtonWidget() : null,
+            body: const LayoutBuilderWidget());
       },
     );
   }

@@ -1,23 +1,48 @@
 import 'dart:math';
 
-import 'package:app_monitoring/src/modules/monitoring/model/monitoring_model.dart';
-import 'package:app_monitoring/src/modules/monitoring/services/monitoring_json_placeholder_service.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/cupertino.dart';
 
+import 'package:app_monitoring/src/modules/monitoring/services/monitoring_json_placeholder_service.dart';
+
+import '../model/data_check_list_model.dart';
+import '../model/point.dart';
+
 class MonitoringController extends ChangeNotifier {
   final MonitoringJsonPlaceholderService _service;
-  MonitoringController(this._service);
+  MonitoringController(
+    this._service,
+  );
 
-  MonitoringModel? monitoring;
+  List<FlSpot> spots2 = [FlSpot(0, 4)];
 
-  List<FlSpot> spots2 = [];
+  List<FlSpot> spots3 = [FlSpot(0, 2)];
 
-  List<FlSpot> spots3 = [];
+  DataCheckListModel? monitoring;
+  ChartPoint? chartPoint;
 
   Future<void> fetchAllMonitoring() async {
-    monitoring = await _service.getMonitoring();
+    monitoring = await _service.getMonitoring(
+        'https://api-robotinic.onrender.com/robotic-arm/count-day-records');
     notifyListeners();
+  }
+
+  Future<void> allChartPoint() async {
+    chartPoint = await _service.getChart(
+        'https://api-robotinic.onrender.com/robotic-arm/get-last-twenty');
+    notifyListeners();
+  }
+
+  Future<List<FlSpot>> createSpotsFromChartPoint() async {
+    double xValue =
+        chartPoint!.collectTimestamp.millisecondsSinceEpoch.toDouble();
+    double yValue = chartPoint!.count;
+
+    if (chartPoint?.color == 'red' || chartPoint?.color == 'green') {
+      return [FlSpot(xValue, yValue)];
+    } else {
+      return [const FlSpot(0, 0)];
+    }
   }
 
   double getMaxY() {
@@ -41,6 +66,4 @@ class MonitoringController extends ChangeNotifier {
     }
     return minY;
   }
-
-  
 }
