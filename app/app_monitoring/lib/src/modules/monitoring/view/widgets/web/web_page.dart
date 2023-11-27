@@ -37,21 +37,21 @@ class WebPage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         const StatisticsWidget(),
-                        Padding(
-                          padding: EdgeInsets.only(top: 40, right: 38.w),
-                          child: ElevatedButton(
-                              onPressed: () {},
-                              style: ButtonStyle(
-                                  backgroundColor:
-                                      MaterialStateColor.resolveWith(
-                                    (states) => Colors.amberAccent,
-                                  ),
-                                  alignment: Alignment.centerLeft),
-                              child: const Text(
-                                'Resetar',
-                                style: TextStyle(color: Colors.black),
-                              )),
-                        ),
+                        // Padding(
+                        //   padding: EdgeInsets.only(top: 40, right: 38.w),
+                        //   child: ElevatedButton(
+                        //       onPressed: () {},
+                        //       style: ButtonStyle(
+                        //           backgroundColor:
+                        //               MaterialStateColor.resolveWith(
+                        //             (states) => Colors.amberAccent,
+                        //           ),
+                        //           alignment: Alignment.centerLeft),
+                        //       child: const Text(
+                        //         'Resetar',
+                        //         style: TextStyle(color: Colors.black),
+                        //       )),
+                        // ),
                       ],
                     ),
                     SizedBox(height: 140.w, child: const ChartsWidget()),

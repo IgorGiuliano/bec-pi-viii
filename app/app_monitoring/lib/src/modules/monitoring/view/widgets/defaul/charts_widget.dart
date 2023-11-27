@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:app_monitoring/src/modules/monitoring/controller/monitoring_controller.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -19,6 +20,8 @@ class _ChartsWidgetState extends State<ChartsWidget> {
   final controller = Modular.get<MonitoringController>();
   final spots2 = Modular.get<MonitoringController>().spots2;
   final spots3 = Modular.get<MonitoringController>().spots3;
+  final getMinY = Modular.get<MonitoringController>().getMinY();
+
   late Timer timer;
   int timeInSeconds = 0;
   @override
@@ -49,16 +52,16 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print(controller.chartPoint?.color ?? '');
-    print(controller.chartPoint?.count ?? '');
-    print(controller.chartPoint?.collectTimestamp.isUtc ?? '');
-    print(controller.chartPoint?.roboticArm.idRoboticArm ?? '');
-    print(controller.chartPoint?.roboticArm.name ?? '');
-    print(controller.monitoring?.firstElement.count ?? '');
-    print(controller.monitoring?.secondElement[0].color ?? '');
-    print(controller.monitoring?.secondElement[0].sum ?? 0);
-    print(controller.monitoring?.secondElement[1].color ?? '');
-    print(controller.monitoring?.secondElement[1].sum ?? 0);
+    // print(controller.chartPoint?.color ?? '');
+    // print(controller.chartPoint?.count ?? '');
+    // print(controller.chartPoint?.collectTimestamp.isUtc ?? '');
+    // print(controller.chartPoint?.roboticArm.idRoboticArm ?? '');
+    // print(controller.chartPoint?.roboticArm.name ?? '');
+    // print(controller.monitoring?.firstElement.count ?? '');
+    // print(controller.monitoring?.secondElement[0].color ?? '');
+    // print(controller.monitoring?.secondElement[0].sum ?? 0);
+    // print(controller.monitoring?.secondElement[1].color ?? '');
+    // print(controller.monitoring?.secondElement[1].sum ?? 0);
 
     return AnimatedBuilder(
       animation: controller,
@@ -122,9 +125,9 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                       ),
                     ),
                   ),
-                  minX: 0,
-                  maxX: 4,
-                  minY: 0,
+                  minX: max(0, timeInSeconds - 7).toDouble(),
+                  maxX: timeInSeconds.toDouble(),
+                  minY: getMinY,
                   maxY: controller.monitoring?.firstElement.count,
                   lineBarsData: [
                     LineChartBarData(
