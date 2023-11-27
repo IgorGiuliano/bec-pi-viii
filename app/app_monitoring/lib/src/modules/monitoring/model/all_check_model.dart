@@ -1,5 +1,5 @@
 class AllCheckModel {
-  int count;
+  double count;
 
   AllCheckModel({required this.count});
 
