@@ -2,6 +2,7 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { LoginDto } from './dto/login.dto';
 import { sign } from 'jsonwebtoken';
 import * as bcrypt from 'bcrypt';
+import { prisma } from '../../database/database';
 
 @Injectable()
 export class AuthService {
