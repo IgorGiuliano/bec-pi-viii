@@ -95,35 +95,14 @@ void setup() {
   servo_rotacao.attach(MOTOR_ROTACAO_GARRA_PIN);
   servo_garra.attach(MOTOR_GARRA_PIN);
 
-  for (int i = 0; i < 90; i++) {
-    servo_base.write(i);
-    delay(50);
-  }
   servo_base.write(0);
-  delay(1000);
-  for (int i = 35; i < 50; i++) {
-    servo_ante.write(i);
-    delay(50);
-  }
-  servo_ante.write(45);
-  delay(1000);
-  for (int i = 0; i < 60; i++) {
-    servo_braco.write(i);
-    delay(50);
-  }
-  servo_braco.write(10);
-  delay(1000);
-  for (int i = 0; i < 60; i++) {
-    servo_rotacao.write(i);
-    delay(50);
-  }
+  delay(250);
+  servo_ante.write(50);
+  delay(250);
+  servo_braco.write(0);
+  delay(250);
   servo_rotacao.write(0);
-  delay(1000);
-  for (int i = 0; i < 90; i++) {
-    servo_garra.write(i);
-    delay(50);
-  }
-  servo_garra.write(0);
+  delay(2000);
 
   mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0A, GPIO_PWM0A_OUT);
   mcpwm_gpio_init(MCPWM_UNIT_0, MCPWM0B, GPIO_PWM0B_OUT);
@@ -292,54 +271,70 @@ void sendData(char* status, float quantity) {
   doc["color"] = status;
   doc["count"] = quantity;
   serializeJson(doc, JSONbuffer);
-
+  Serial.println(JSONbuffer);
   mqttClient.publish("devices/nodemcu-0001/messages/events/", JSONbuffer);
 }
 
 void useArm() {
-  for (int i = 0; i < 90; i++) {
-    servo_base.write(i);
-    delay(50);
-  }
-  for (int i = 35; i < 50; i++) {
+  servo_base.write(0);
+  delay(250);
+  servo_ante.write(50);
+  delay(250);
+  servo_braco.write(0);
+  // delay(250);
+  // servo_rotacao.write(0);
+  delay(2000);
+
+  // giro
+  servo_ante.write(90);
+  delay(250);
+  servo_braco.write(30);
+  delay(250);
+
+  servo_base.write(180);
+  delay(2000);
+
+  // desce
+  for (int i = 90; i > 50; i -= 1) {
     servo_ante.write(i);
     delay(50);
   }
-  for (int i = 0; i < 60; i++) {
+  delay(250);
+  for (int i = 30; i > 0; i -= 1) {
     servo_braco.write(i);
     delay(50);
   }
-  for (int i = 0; i < 60; i++) {
-    servo_rotacao.write(i);
-    delay(50);
-  }
-  for (int i = 0; i < 90; i++) {
-    servo_garra.write(i);
-    delay(50);
-  }
+  delay(250);
 
-  delay(1000);
-
-  for (int i = 90; i >= 0; i--) {
-    servo_base.write(i);
-    delay(50);
-  }
-  for (int i = 50; i >= 35; i--) {
+  // giro
+  for (int i = 50; i < 90; i += 1) {
     servo_ante.write(i);
     delay(50);
   }
-  for (int i = 60; i >= 0; i--) {
+  delay(250);
+  for (int i = 0; i < 30; i += 1) {
     servo_braco.write(i);
     delay(50);
   }
-  for (int i = 60; i >= 0; i--) {
-    servo_rotacao.write(i);
+  delay(250);
+  servo_base.write(0);
+  // delay(250);
+  delay(2000);
+
+
+  // desce
+
+  for (int i = 90; i > 50; i -= 1) {
+    servo_ante.write(i);
     delay(50);
   }
-  for (int i = 90; i >= 0; i--) {
-    servo_garra.write(i);
+  delay(250);
+
+  for (int i = 30; i > 0; i -= 1) {
+    servo_braco.write(i);
     delay(50);
   }
+  delay(2000);
 }
 
 static void moveEsteira(mcpwm_unit_t mcpwm_num, mcpwm_timer_t timer_num, float duty_cycle) {

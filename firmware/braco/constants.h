@@ -7,7 +7,7 @@
 #define IR_INICIO_PIN           19
 #define GPIO_PWM0A_OUT          12
 #define GPIO_PWM0B_OUT          14
-#define MOTOR_BASE_PIN          35
+#define MOTOR_BASE_PIN          15
 #define MOTOR_ANTEBRACO_PIN     32
 #define MOTOR_BRACO_PIN         33
 #define MOTOR_ROTACAO_GARRA_PIN 27
