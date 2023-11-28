@@ -128,7 +128,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                   minX: max(0, timeInSeconds - 7).toDouble(),
                   maxX: timeInSeconds.toDouble(),
                   minY: getMinY,
-                  maxY: controller.monitoring?.firstElement.count,
+                  maxY: controller.monitoring?.firstElement.count.toDouble(),
                   lineBarsData: [
                     LineChartBarData(
                       spots: spots2,
