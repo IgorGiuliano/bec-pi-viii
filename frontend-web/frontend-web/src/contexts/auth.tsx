@@ -42,14 +42,14 @@ export const AuthProvider: React.FunctionComponent<BaseLayoutProps> = ({ childre
     }, []);
 
     async function login(userData: object) {
-        const response = await api.post('/login', userData);
+        const response = await api.post('/auth/auth', userData);
         if (response.data.Error) {
             // eslint-disable-next-line no-alert
             window.alert(`Ocorreu um erro: ${response.data.Error}`);
         } else {
-            api.defaults.headers.common.Authorization = `Bearer ${response.data.logged.token}`;
-            sessionStorage.setItem('@App:token', response.data.logged.token);
-            setUser(response.data.logged.data);
+            api.defaults.headers.common.Authorization = `Bearer ${response.data.accessToken}`;
+            sessionStorage.setItem('@App:token', response.data.accessToken);
+            setUser(response.data.data);
 
             verifyAuthenticated();
         }

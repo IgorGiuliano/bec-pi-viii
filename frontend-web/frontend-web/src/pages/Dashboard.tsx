@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/pages/Dashboard.scss';
 import { BsBoxArrowRight } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
@@ -35,7 +35,7 @@ export default function Dashboard() {
     const [totalGreen, setTotalGreen] = useState(0);
     const [totalRed, setTotalRed] = useState(0);
     const [graphHour, setGraphHour] = useState<string[]>([]);
-    const [graphCapData, setGraphCapData] = useState<number[]>([]);
+    const [graphdata, setGraphdata] = useState<number[]>([]);
 
     const options = {
         responsive: true,
@@ -64,7 +64,7 @@ export default function Dashboard() {
         datasets: [
             {
                 label: 'Quantidade',
-                data: graphCapData,
+                data: graphdata,
                 backgroundColor: 'rgba(255, 105, 180, 1)',
                 borderColor: 'rgb(98, 84, 255)'
             }
@@ -81,42 +81,47 @@ export default function Dashboard() {
         }
     }
 
-    async function handleGetCapData() {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    async function handleGetData() {
         api.defaults.headers.common.Authorization = storagedToken;
-        const capData = await api.get('/get_collected_cap');
-        console.log(capData);
+        const data = await api.get('/robotic-arm/count-day-records');
+        console.log(data);
 
-        if (!capData.data) {
+        if (!data.data) {
             console.log('Error');
         }
 
-        if (capData.data[0]._sum.count !== null) {
-            setTotalCaps(parseInt(capData.data[0]._sum.count, 10));
+        if (data.data[0]._sum.count !== null) {
+            setTotalCaps(parseInt(data.data[0]._sum.count, 10));
         }
 
-        if (capData.data[1][0]) {
-            setTotalGreen(capData.data[1][0]._sum.count);
+        if (data.data[1][0]) {
+            setTotalGreen(data.data[1][0]._sum.count);
         }
 
-        if (capData.data[1][1]) {
-            setTotalRed(capData.data[1][1]._sum.count);
+        if (data.data[1][1]) {
+            setTotalRed(data.data[1][1]._sum.count);
         }
 
-        if (capData.data[2][0]) {
-            const count = capData.data[2].map((item: { count: number; }) => (item.count));
+        api.defaults.headers.common.Authorization = storagedToken;
+        const tese = await api.get('/robotic-arm/get-last-twenty');
+        console.log(tese.data);
+
+        if (tese.data) {
+            const count = tese.data.map((item: { count: number; }) => (item.count));
             const createdAt: string[] = [];
-            capData.data[2].map((item: { createdAt: number; }) => {
-                const hours = new Date(item.createdAt).getHours();
-                const minutes = new Date(item.createdAt).getMinutes();
-                const seconds = new Date(item.createdAt).getSeconds();
-                const month = new Date(item.createdAt).getMonth();
-                const dia = new Date(item.createdAt).getDate();
-                const year = new Date(item.createdAt).getFullYear();
+            tese.data.map((item: { collect_timestamp: number; }) => {
+                const hours = new Date(item.collect_timestamp).getHours();
+                const minutes = new Date(item.collect_timestamp).getMinutes();
+                const seconds = new Date(item.collect_timestamp).getSeconds();
+                const month = new Date(item.collect_timestamp).getMonth();
+                const dia = new Date(item.collect_timestamp).getDate();
+                const year = new Date(item.collect_timestamp).getFullYear();
                 createdAt.push(`${dia}/${month}/${year} ${hours}:${minutes}:${seconds}`);
                 return null;
             });
-            setGraphCapData(count.reverse());
-            setGraphHour(createdAt.reverse());
+            setGraphdata(count);
+            setGraphHour(createdAt);
         }
     }
 
@@ -129,13 +134,13 @@ export default function Dashboard() {
     });
 
     useEffect(() => {
-        handleGetCapData();
+        handleGetData();
         const interval = setInterval(() => {
-            handleGetCapData();
+            handleGetData();
         }, 5000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [handleGetData]);
 
     return (
         <div className="wrapper">
