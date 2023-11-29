@@ -1,11 +1,12 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:app_monitoring/src/modules/monitoring/controller/monitoring_controller.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../../controller/all_chart_point_controller.dart';
 
 class ChartsWidget extends StatefulWidget {
   const ChartsWidget({
@@ -17,29 +18,30 @@ class ChartsWidget extends StatefulWidget {
 }
 
 class _ChartsWidgetState extends State<ChartsWidget> {
-  final controller = Modular.get<MonitoringController>();
-  final spots2 = Modular.get<MonitoringController>().spots2;
-  final spots3 = Modular.get<MonitoringController>().spots3;
-  final getMinY = Modular.get<MonitoringController>().getMinY();
+  final controller = Modular.get<AllChartPointController>();
+  final spotAproved = Modular.get<AllChartPointController>().spots2;
+  final spotFailed = Modular.get<AllChartPointController>().spots3;
 
   late Timer timer;
   int timeInSeconds = 0;
   @override
   void initState() {
     super.initState();
-    controller.fetchAllMonitoring();
-    //controller.allChartPoint();
-
+    controller.allChartPoint();
+    int index = 0;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
-        timeInSeconds += 1;
-        spots2.add(FlSpot(timeInSeconds.toDouble(), (timeInSeconds + 2) % 6));
-        spots3.add(FlSpot(timeInSeconds.toDouble(), (timeInSeconds + 4) % 6));
+        timeInSeconds++;
+        spotAproved.add(
+            FlSpot(timeInSeconds.toDouble(), controller.spotAproved(index)));
+        spotFailed.add(
+            FlSpot(timeInSeconds.toDouble(), controller.spotFailed(index)));
 
-        if (spots2.length > 8) {
-          spots2.removeAt(0);
-          spots3.removeAt(0);
+        if (spotAproved.length > 8) {
+          spotAproved.removeAt(0);
+          spotFailed.removeAt(0);
         }
+        index++;
       });
     });
   }
@@ -52,21 +54,10 @@ class _ChartsWidgetState extends State<ChartsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // print(controller.chartPoint?.color ?? '');
-    // print(controller.chartPoint?.count ?? '');
-    // print(controller.chartPoint?.collectTimestamp.isUtc ?? '');
-    // print(controller.chartPoint?.roboticArm.idRoboticArm ?? '');
-    // print(controller.chartPoint?.roboticArm.name ?? '');
-    // print(controller.monitoring?.firstElement.count ?? '');
-    // print(controller.monitoring?.secondElement[0].color ?? '');
-    // print(controller.monitoring?.secondElement[0].sum ?? 0);
-    // print(controller.monitoring?.secondElement[1].color ?? '');
-    // print(controller.monitoring?.secondElement[1].sum ?? 0);
-
     return AnimatedBuilder(
       animation: controller,
       builder: (context, child) {
-        if (controller.monitoring == null) {
+        if (controller.chartPoint == null) {
           return const Center(child: CircularProgressIndicator());
         }
         return Padding(
@@ -88,7 +79,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                         showTitles: true,
                         reservedSize: 30,
                         getTitlesWidget: (value, meta) {
-                          return Text(value.toInt().toString());
+                          return Text(value.toString());
                         },
                       ),
                     ),
@@ -97,7 +88,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                         showTitles: true,
                         reservedSize: 30,
                         getTitlesWidget: (value, meta) {
-                          return Text(value.toInt().toString());
+                          return Text(value.toString());
                         },
                       ),
                     ),
@@ -127,16 +118,16 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                   ),
                   minX: max(0, timeInSeconds - 7).toDouble(),
                   maxX: timeInSeconds.toDouble(),
-                  minY: getMinY,
-                  maxY: controller.monitoring?.firstElement.count.toDouble(),
+                  minY: controller.getMinY(),
+                  maxY: controller.getMaxY(),
                   lineBarsData: [
                     LineChartBarData(
-                      spots: spots2,
+                      spots: spotFailed,
                       color: Colors.red,
                       dotData: const FlDotData(show: true),
                     ),
                     LineChartBarData(
-                      spots: spots3,
+                      spots: spotAproved,
                       color: Colors.green,
                       dotData: const FlDotData(show: true),
                     ),

@@ -33,10 +33,10 @@ class WebPage extends StatelessWidget {
               Expanded(
                 child: Column(
                   children: [
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const StatisticsWidget(),
+                        StatisticsWidget(),
                         // Padding(
                         //   padding: EdgeInsets.only(top: 40, right: 38.w),
                         //   child: ElevatedButton(
