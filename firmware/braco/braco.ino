@@ -16,55 +16,12 @@
 #include <WiFiClientSecure.h>
 #include <PubSubClient.h>
 #include <string>
-
-class ArmServo {
-  Servo servo;
-  bool move_foward;
-  bool move_backward;
-  std::string foward_msg;
-  std::string backward_msg;
-  uint8_t pin;
-  uint8_t position;
-
-public:
-  ArmServo(uint8_t pin, const char* bwd_msg, const char* fwd_msg)
-    : servo{}, move_foward{ false }, move_backward{ false }, foward_msg{ fwd_msg }, backward_msg{ bwd_msg }, pin{ pin }, position{ 0 } {
-    servo.attach(pin);
-    servo.write(0);
-  }
-
-  void update_status(const char* msg) {
-    if (!msg) {
-      return;
-    }
-
-    if (msg == foward_msg) {
-      move_foward = !move_foward;
-      move_backward = false;
-    } else if (msg == backward_msg) {
-      move_backward = !move_backward;
-      move_foward = false;
-    }
-
-    move();
-  }
-
-  void move() {
-    if (move_foward && position < 179) {
-      position += 2;
-    }
-    if (move_backward && position > 1) {
-      position -= 2;
-    }
-
-    servo.write(position);
-  }
-};
+#include "Controller.h"
 
 std::vector<ArmServo> servos{
   ArmServo(MOTOR_BASE_PIN, "rightshoulder", "leftshoulder"),
   ArmServo(MOTOR_ANTEBRACO_PIN, "back", "start"),
-  ArmServo(MOTOR_ANTEBRACO_PIN, "b", "a")
+  ArmServo(MOTOR_BRACO_PIN, "b", "a")
 };
 
 WiFiClientSecure espClient;
@@ -152,23 +109,57 @@ void loop() {
     rotina();
   }
 
-  String serial_str = Serial.readString();
-  char* str = (char*)malloc(serial_str.length() + 1);
-  strcpy(str, serial_str.c_str());
+  rotina_controle();
+}
 
-  char* token = strtok(str, "/");
+void rotina_controle() {
+  unsigned long stop_time = 0;
 
-  while (token) {
-    for (auto& servo : servos) {
-      servo.update_status(token);
+  while (true) {
+    if (!Serial.available()) {
+      bool is_servos_stopped = true;
+
+      for (auto& servo : servos) {
+        servo.move();
+        is_servos_stopped &= servo.is_stopped();
+      }
+
+      // Se os servos estiverem parados por 4s ou mais,
+      // sai da rotina de controle
+      if (is_servos_stopped) {
+        if (stop_time == 0) {
+          stop_time = millis() + 4000L;
+        }
+        else if (millis() >= stop_time) {
+          break;
+        }
+      }
     }
-    token = strtok(NULL, "/");
+
+    String serial_str = Serial.readString();
+    char* str = (char*) malloc(serial_str.length() + 1);
+    strcpy(str, serial_str.c_str());
+
+    char* token = strtok(str, "/");
+
+    while (token) {
+      for (auto& servo : servos) {
+        servo.update_status(token);
+      }
+      token = strtok(NULL, "/");
+    }
+
+    free(str);
+    str = NULL;
+    stop_time = 0;
+    
+
+    delay(15);
   }
 
-  free(str);
-  str = NULL;
-
-  delay(15);
+  servos[0].set_position(0);
+  servos[1].set_position(50);
+  servos[2].set_position(0);
 }
 
 void rotina() {
