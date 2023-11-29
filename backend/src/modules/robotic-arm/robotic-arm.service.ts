@@ -105,7 +105,7 @@ export class RoboticArmService {
         collect_timestamp: true,
       },
       orderBy: {
-        collect_timestamp: 'asc',
+        collect_timestamp: 'desc',
       },
       take: 20,
     });
