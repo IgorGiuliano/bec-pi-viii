@@ -19,9 +19,11 @@
 #include "Controller.h"
 
 std::vector<ArmServo> servos{
-  ArmServo(MOTOR_BASE_PIN, "rightshoulder", "leftshoulder"),
+  ArmServo(MOTOR_BASE_PIN, "righttrigger", "lefttrigger"),
   ArmServo(MOTOR_ANTEBRACO_PIN, "back", "start"),
-  ArmServo(MOTOR_BRACO_PIN, "b", "a")
+  ArmServo(MOTOR_BRACO_PIN, "x", "y"),
+  ArmServo(MOTOR_ROTACAO_GARRA_PIN, "rightshoulder", "leftshoulder"),
+  ArmServo(MOTOR_GARRA_PIN, "b", "a")
 };
 
 WiFiClientSecure espClient;

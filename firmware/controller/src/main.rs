@@ -6,8 +6,7 @@ use sdl2::event::Event;
 use sdl2::rwops::RWops;
 use serialport::{ClearBuffer, SerialPort};
 
-const BUTTONS: [Button; 9] = [
-    Button::A,
+const BUTTONS: [Button; 8] = [
     Button::LeftShoulder,
     Button::RightShoulder,
     Button::Back,
