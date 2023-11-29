@@ -21,9 +21,10 @@ class _ChartsWidgetState extends State<ChartsWidget> {
   final controller = Modular.get<AllChartPointController>();
   final spotAproved = Modular.get<AllChartPointController>().spots2;
   final spotFailed = Modular.get<AllChartPointController>().spots3;
-
   late Timer timer;
+
   int timeInSeconds = 0;
+
   @override
   void initState() {
     super.initState();
@@ -79,7 +80,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                         showTitles: true,
                         reservedSize: 30,
                         getTitlesWidget: (value, meta) {
-                          return Text(value.toString());
+                          return Text(value.toInt().toString());
                         },
                       ),
                     ),
@@ -88,7 +89,7 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                         showTitles: true,
                         reservedSize: 30,
                         getTitlesWidget: (value, meta) {
-                          return Text(value.toString());
+                          return Text(value.toInt().toString());
                         },
                       ),
                     ),

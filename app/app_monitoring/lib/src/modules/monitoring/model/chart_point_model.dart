@@ -1,7 +1,7 @@
 import 'robotic_arm_model.dart';
 
 class ChartPointModel {
-  double count;
+  int count;
   String color;
   RoboticArmModel roboticArm;
   int collectTimestamp;

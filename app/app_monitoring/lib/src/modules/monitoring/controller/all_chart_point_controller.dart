@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:app_monitoring/src/modules/monitoring/model/chart_point_model.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +13,8 @@ class AllChartPointController extends ChangeNotifier {
   AllChartPointController(this._allCharPointPlaceholderService);
   AllChartPointListModel? chartPoint;
 
-  List<FlSpot> spots2 = [];
-  List<FlSpot> spots3 = [];
+  List<FlSpot> spots2 = [FlSpot(0, 0)];
+  List<FlSpot> spots3 = [FlSpot(0, 0)];
 
   Future<void> allChartPoint() async {
     chartPoint = await _allCharPointPlaceholderService.getChartPoint();
@@ -24,14 +25,14 @@ class AllChartPointController extends ChangeNotifier {
     if (chartPoint?.chartPointList[index].color != 'APROVADO') {
       return chartPoint?.chartPointList[index].count.toDouble() ?? 0.0;
     }
-    return 0.0; 
+    return 0.0;
   }
 
   double spotAproved(int index) {
     if (chartPoint?.chartPointList[index].color != 'REPROVADO') {
       return chartPoint?.chartPointList[index].count.toDouble() ?? 0.0;
     }
-    return 0.0; 
+    return 0.0;
   }
 
   double getMaxY() {
