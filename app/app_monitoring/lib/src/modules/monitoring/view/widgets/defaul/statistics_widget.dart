@@ -36,8 +36,8 @@ class _StatisticsWidgetState extends State<StatisticsWidget> {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(16), color: Colors.white),
             child: Padding(
-              padding:
-                  const EdgeInsets.only(top: 24, right: 24, bottom: 24, left: 24),
+              padding: const EdgeInsets.only(
+                  top: 24, right: 24, bottom: 24, left: 24),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

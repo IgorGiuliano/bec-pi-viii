@@ -1,5 +1,9 @@
 import 'package:app_monitoring/src/core/core_module.dart';
+import 'package:app_monitoring/src/modules/monitoring/controller/all_chart_point_controller.dart';
 import 'package:app_monitoring/src/modules/monitoring/controller/monitoring_controller.dart';
+import 'package:app_monitoring/src/modules/monitoring/services/all_chart_point_abstract.dart';
+import 'package:app_monitoring/src/modules/monitoring/services/all_chart_point_implementation.dart';
+import 'package:app_monitoring/src/modules/monitoring/services/all_chart_point_json_placeholder_service.dart';
 import 'package:app_monitoring/src/modules/monitoring/services/monitoring_dio_client_implementation.dart';
 import 'package:app_monitoring/src/modules/monitoring/services/monitoring_http_client_abstract.dart';
 import 'package:app_monitoring/src/modules/monitoring/services/monitoring_json_placeholder_service.dart';
@@ -20,6 +24,9 @@ class MonitoringModule extends Module {
     i.addSingleton(MonitoringJsonPlaceholderService.new);
     i.addSingleton<MonitoringHttpClientAbstract>(
         MonitoringDioClientImplementation.new);
+    i.addSingleton(AllChartPointController.new);
+    i.addSingleton(AllCharPointPlaceholderService.new);
+    i.addSingleton<AllCharPointAbstract>(AllChartPointImplementation.new);
   }
 
   @override

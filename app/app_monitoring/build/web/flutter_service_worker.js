@@ -8,8 +8,8 @@ const RESOURCES = {"assets/AssetManifest.bin": "a12598ab6b1fc1a600616988b0cf81fd
 "assets/assets/images/png/logo.png": "76013d3ae73b7d663948e951f8604bff",
 "assets/assets/images/svg/logo.svg": "0d70aea712d181ee2858d8e54d9f61c8",
 "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/fonts/MaterialIcons-Regular.otf": "86b9aadae53b210e004c860033b946eb",
-"assets/NOTICES": "f8eba6ce7b66b82611c94d6c0a008e29",
+"assets/fonts/MaterialIcons-Regular.otf": "62ec8220af1fb03e1c20cfa38781e17e",
+"assets/NOTICES": "8e95fd335436cb7b0c0a159d166f7cc1",
 "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "57d849d738900cfd590e9adc7e208250",
 "assets/shaders/ink_sparkle.frag": "f8b80e740d33eb157090be4e995febdf",
 "canvaskit/canvaskit.js": "76f7d822f42397160c5dfc69cbc9b2de",
@@ -21,9 +21,9 @@ const RESOURCES = {"assets/AssetManifest.bin": "a12598ab6b1fc1a600616988b0cf81fd
 "canvaskit/skwasm.worker.js": "19659053a277272607529ef87acf9d8a",
 "favicon.png": "20efbf93c553c1d2c8c2a5995720594a",
 "flutter.js": "6b515e434cea20006b3ef1726d2c8894",
-"index.html": "9950c5c327c346aebb4af4095d04924e",
-"/": "9950c5c327c346aebb4af4095d04924e",
-"main.dart.js": "08faaa7321863817ec838f0fce9bd3d7",
+"index.html": "3b8dd6c9f86fa4e85e1504f1810a5395",
+"/": "3b8dd6c9f86fa4e85e1504f1810a5395",
+"main.dart.js": "3878847f2c74306da985390fc640f8b8",
 "manifest.json": "d1feb32976dc514aec1d8234fa0b70c8",
 "version.json": "b483cba07053f75efc4a2c409b68b7a8"};
 // The application shell files that are downloaded before a service worker can

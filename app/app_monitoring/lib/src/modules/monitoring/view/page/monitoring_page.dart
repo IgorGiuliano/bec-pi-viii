@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../widgets/defaul/drawer_widget.dart';
 import '../widgets/defaul/layuot_builder_widget.dart';
-import '../widgets/mobile/mobile_floating_action_button_widget.dart';
 
 class MonitoringPage extends StatefulWidget {
   const MonitoringPage({super.key});
