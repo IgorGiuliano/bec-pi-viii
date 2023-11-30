@@ -213,9 +213,27 @@ void rotina() {
   } else if ((g > r) && (g > b)) {
     Serial.println("APROVADO");
     char* status = "APROVADO";
+
+    DynamicJsonDocument doc(1024);
+    char JSONbuffer[1024];
+    doc["roboticArm"] = MACHINE_NAME;
+    doc["color"] = "APROVADO";
+    doc["count"] = 1;
+    serializeJson(doc, JSONbuffer);
+    Serial.println(JSONbuffer);
+    mqqtClient.publish("devices/nodemcu-001/messages/events/", JSONbuffer);
   } else if ((r > g) && (r > b)) {
     Serial.println("REPROVADO");
     char* status = "REPROVADO";
+    
+    DynamicJsonDocument doc(1024);
+    char JSONbuffer[1024];
+    doc["roboticArm"] = MACHINE_NAME;
+    doc["color"] = "REPROVADO";
+    doc["count"] = 1;
+    serializeJson(doc, JSONbuffer);
+    Serial.println(JSONbuffer);
+    mqqtClient.publish("devices/nodemcu-001/messages/events/", JSONbuffer);
     useArm();
   }
 
