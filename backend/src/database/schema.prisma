@@ -13,8 +13,8 @@ enum UserRole {
 }
 
 enum StuffColor {
-  RED
-  GREEN
+  REPROVADO
+  APROVADO
 }
 
 model User {
@@ -38,7 +38,7 @@ model RoboticArm {
 model CollectedStuff {
   id_collectedStuff String @id @default(auto()) @map("_id") @db.ObjectId
   collect_timestamp Int
-  count Int
+  count Float
   color StuffColor
 
   robotic_arm RoboticArm @relation(fields: [roboticArm], references: [id_roboticArm])

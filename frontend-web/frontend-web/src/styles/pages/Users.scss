@@ -1,0 +1,146 @@
+.wrapper {
+    flex-direction: row;
+}
+
+.lateral-menu {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    height: 100vh;
+    background-color: #39394B;
+
+    .options {
+        display: flex;
+        justify-content: center;
+        height: 90%;
+
+        ul {
+            margin-top: 20%;
+
+            li:first-child {
+                margin-top: 0;
+            }
+
+            li {
+                margin-top: 20px;
+
+                #user {
+                    color: #6254FF;
+                }
+
+                a {
+                    font-size: 18;
+                    font-weight: 500;
+                    text-decoration: none;
+                    color: var(--white);
+                }
+
+                a:visited {
+                    text-decoration: none;
+                    color: var(--white);
+                }
+            }
+        }
+
+    }
+
+    .user-logout {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 10%;
+        color: #f0f0f0;
+    }
+}
+
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    width: 85%;
+    height: 100vh;
+    background-color: #222131;
+
+    .container-titulo {
+        display: flex;
+        height: 10vh;
+        width: 100%;
+        align-items: center;
+
+        h1 {
+            font-size: 24;
+            font-weight: bolder;
+            color: #f0f0f0;
+            margin-left: 5vw;
+        }
+    }
+
+    .container-users {
+        display: flex;
+        justify-content: center;
+        height: 80vh;
+        width: 75%;
+        margin-left: 50px;
+        background-color: #39394B;
+        border-radius: 10px;
+
+        table {
+            width: 90%;
+            height: 90%;
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+            margin-top: 25px;
+
+            thead {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                height: 10%;
+                width: 95%;
+                color: var(--white);
+
+                tr {
+                    justify-content: space-between;
+                    text-align: center;
+                    display: flex;
+                    height: 20px;
+                    width: 100%;
+                    color: #f0f0f0;
+
+                    th {
+                        width: 100%;
+                        text-align: center;
+                    }
+
+                }
+
+            }
+
+            tbody {
+                display: flex;
+                justify-content: center;
+                height: 90%;
+                width: 95%;
+
+                tr {
+                    justify-content: space-between;
+                    text-align: center;
+                    display: flex;
+                    height: 20px;
+                    width: 100%;
+                    color: #f0f0f0;
+
+                    td {
+                        width: 100%;
+                        text-align: center;
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+}

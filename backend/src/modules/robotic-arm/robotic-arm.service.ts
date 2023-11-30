@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateRoboticArmDto } from './dto/create-robotic-arm.dto';
 import { UpdateRoboticArmDto } from './dto/update-robotic-arm.dto';
+import { prisma } from '../../database/database';
 
 @Injectable()
 export class RoboticArmService {
@@ -73,5 +74,42 @@ export class RoboticArmService {
     });
 
     return roboticArm;
+  }
+
+  async countDayRecords() {
+    const total = await prisma.collectedStuff.aggregate({
+      _sum: {
+        count: true,
+      },
+    });
+
+    const records = await prisma.collectedStuff.groupBy({
+      by: ['color'],
+      _sum: {
+        count: true,
+      },
+      orderBy: {
+        color: 'asc',
+      },
+    });
+
+    return [total, records];
+  }
+
+  async lastTwentyRecords() {
+    const lastRecords = await prisma.collectedStuff.findMany({
+      select: {
+        count: true,
+        color: true,
+        robotic_arm: true,
+        collect_timestamp: true,
+      },
+      orderBy: {
+        collect_timestamp: 'desc',
+      },
+      take: 20,
+    });
+
+    return lastRecords;
   }
 }
