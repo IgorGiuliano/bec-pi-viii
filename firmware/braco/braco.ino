@@ -1,6 +1,4 @@
-#include <ESP32Servo.h>
-
-
+// #include <ESP32Servo.h>
 #include "constants.h"
 #include "azure.h"
 #include "WString.h"
@@ -16,21 +14,22 @@
 #include <WiFiClientSecure.h>
 #include <PubSubClient.h>
 #include <string>
+#include <vector>
 #include "Controller.h"
 
 std::vector<ArmServo> servos{
-  ArmServo(MOTOR_BASE_PIN, "righttrigger", "lefttrigger"),
-  ArmServo(MOTOR_ANTEBRACO_PIN, "back", "start"),
-  ArmServo(MOTOR_BRACO_PIN, "x", "y"),
-  ArmServo(MOTOR_ROTACAO_GARRA_PIN, "rightshoulder", "leftshoulder"),
-  ArmServo(MOTOR_GARRA_PIN, "b", "a")
+  ArmServo(MOTOR_BASE_PIN, 0, "righttrigger", "lefttrigger"),
+  ArmServo(MOTOR_ANTEBRACO_PIN, 50, "back", "start"),
+  ArmServo(MOTOR_BRACO_PIN, 0, "x", "y"),
+  ArmServo(MOTOR_ROTACAO_GARRA_PIN, 0, "rightshoulder", "leftshoulder"),
+  ArmServo(MOTOR_GARRA_PIN, 0, "b", "a")
 };
 
 WiFiClientSecure espClient;
 WiFiManager wifiManager;
 PubSubClient mqttClient(espClient);
-
 Adafruit_TCS34725 tcs = Adafruit_TCS34725(TCS34725_INTEGRATIONTIME_614MS, TCS34725_GAIN_1X);
+
 Servo servo_base;
 Servo servo_ante;
 Servo servo_braco;
@@ -109,38 +108,53 @@ void setup() {
 void loop() {
   if (!Serial.available()) {
     rotina();
+    return;
   }
 
   rotina_controle();
 }
 
 void rotina_controle() {
+  Serial.println("Begin rotina_controle");
   unsigned long stop_time = 0;
 
   while (true) {
-    if (!Serial.available()) {
-      bool is_servos_stopped = true;
+    bool is_servos_stopped = true;
 
-      for (auto& servo : servos) {
-        servo.move();
-        is_servos_stopped &= servo.is_stopped();
-      }
+    for (auto& servo : servos) {
+      servo.move();
+      is_servos_stopped &= servo.is_stopped();
+    }
+
+    if (!Serial.available()) {
+      Serial.println("Serial not available");
 
       // Se os servos estiverem parados por 4s ou mais,
       // sai da rotina de controle
       if (is_servos_stopped) {
+        Serial.println("All servos stopped");
         if (stop_time == 0) {
+          Serial.println("stop_time is zero");
           stop_time = millis() + 4000L;
         }
         else if (millis() >= stop_time) {
+          Serial.println("Breaking from loop");
           break;
         }
       }
+
+      delay(15);
+      continue;
     }
+
+    Serial.println("Serial is available");
 
     String serial_str = Serial.readString();
     char* str = (char*) malloc(serial_str.length() + 1);
     strcpy(str, serial_str.c_str());
+
+    Serial.print("Received str = ");
+    Serial.println(str);
 
     char* token = strtok(str, "/");
 
@@ -159,9 +173,19 @@ void rotina_controle() {
     delay(15);
   }
 
+  Serial.println("Resetting servos[0]");
   servos[0].set_position(0);
+
+  Serial.println("Resetting servos[1]");
   servos[1].set_position(50);
+
+  Serial.println("Resetting servos[2]");
   servos[2].set_position(0);
+
+  Serial.println("Resetting servos[3]");
+  servos[3].set_position(0);
+
+  Serial.println("End rotina_controle");
 }
 
 void rotina() {
