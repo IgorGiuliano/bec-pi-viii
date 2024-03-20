@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:fl_chart/fl_chart.dart';
@@ -15,21 +16,47 @@ class AllChartPointController extends ChangeNotifier {
   List<FlSpot> spots2 = [const FlSpot(0, 0)];
   List<FlSpot> spots3 = [const FlSpot(0, 0)];
 
+  late Timer timer;
+  int timeInSeconds = 0;
+  int index = 0;
+
   Future<void> allChartPoint() async {
     chartPoint = await _allCharPointPlaceholderService.getChartPoint();
     notifyListeners();
   }
 
+  void startTimer() {
+    timeInSeconds++;
+    spots2.add(FlSpot(timeInSeconds.toDouble(), spotAproved(index)));
+    spots3.add(FlSpot(timeInSeconds.toDouble(), spotFailed(index)));
+
+    if (spots2.length > 8) {
+      spots2.removeAt(0);
+      spots3.removeAt(0);
+    }
+    index++;
+  }
+
   double spotFailed(int index) {
-    if (chartPoint?.chartPointList[index].color != 'APROVADO') {
-      return chartPoint?.chartPointList[index].count.toDouble() ?? 0.0;
+    if (chartPoint != null &&
+        index >= 0 &&
+        index < chartPoint!.chartPointList.length) {
+      var chartPointItem = chartPoint!.chartPointList[index];
+      if (chartPointItem.color != 'APROVADO') {
+        return chartPoint?.chartPointList[index].count.toDouble() ?? 0.0;
+      }
     }
     return 0.0;
   }
 
   double spotAproved(int index) {
-    if (chartPoint?.chartPointList[index].color != 'REPROVADO') {
-      return chartPoint?.chartPointList[index].count.toDouble() ?? 0.0;
+    if (chartPoint != null &&
+        index >= 0 &&
+        index < chartPoint!.chartPointList.length) {
+      var chartPointItem = chartPoint!.chartPointList[index];
+      if (chartPointItem.color != 'REPROVADO') {
+        return chartPoint?.chartPointList[index].count.toDouble() ?? 0.0;
+      }
     }
     return 0.0;
   }

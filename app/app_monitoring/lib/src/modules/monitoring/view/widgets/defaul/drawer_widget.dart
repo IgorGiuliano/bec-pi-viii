@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class DrawerWidget extends StatelessWidget {
   const DrawerWidget({
@@ -17,7 +18,7 @@ class DrawerWidget extends StatelessWidget {
             SizedBox(
               width: 200,
               height: 200,
-              child: Image.asset('assets/images/png/logo.png'),
+              child: SvgPicture.asset('assets/images/svg/logo.svg'),
             ),
             const Text(
               '\nCentro Universitário Senac\n\nPI8 - App de monitoramento\n\nGuilherme Chiquito\nHenrique Jorge\nIgor Giuliano\nLucas Sampaio\nMateus Porto\nPaulo Vaamond\nRubens Prado\n\n1.0.0 ',

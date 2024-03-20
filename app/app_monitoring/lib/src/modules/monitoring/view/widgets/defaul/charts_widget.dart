@@ -19,37 +19,22 @@ class ChartsWidget extends StatefulWidget {
 
 class _ChartsWidgetState extends State<ChartsWidget> {
   final controller = Modular.get<AllChartPointController>();
-  final spotAproved = Modular.get<AllChartPointController>().spots2;
-  final spotFailed = Modular.get<AllChartPointController>().spots3;
-  late Timer timer;
-
-  int timeInSeconds = 0;
+   late Timer timer;
 
   @override
   void initState() {
     super.initState();
     controller.allChartPoint();
-    int index = 0;
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        timeInSeconds++;
-        spotAproved.add(
-            FlSpot(timeInSeconds.toDouble(), controller.spotAproved(index)));
-        spotFailed.add(
-            FlSpot(timeInSeconds.toDouble(), controller.spotFailed(index)));
-
-        if (spotAproved.length > 8) {
-          spotAproved.removeAt(0);
-          spotFailed.removeAt(0);
-        }
-        index++;
+    setState(() {
+      controller.startTimer();
       });
     });
   }
 
   @override
   void dispose() {
-    timer.cancel();
+    controller.timer.cancel();
     super.dispose();
   }
 
@@ -117,18 +102,18 @@ class _ChartsWidgetState extends State<ChartsWidget> {
                       ),
                     ),
                   ),
-                  minX: max(0, timeInSeconds - 7).toDouble(),
-                  maxX: timeInSeconds.toDouble(),
+                  minX: max(0,controller.timeInSeconds - 7).toDouble(),
+                  maxX: controller.timeInSeconds.toDouble(),
                   minY: controller.getMinY(),
                   maxY: controller.getMaxY(),
                   lineBarsData: [
                     LineChartBarData(
-                      spots: spotFailed,
+                      spots: controller.spots3,
                       color: Colors.red,
                       dotData: const FlDotData(show: true),
                     ),
                     LineChartBarData(
-                      spots: spotAproved,
+                      spots: controller.spots2,
                       color: Colors.green,
                       dotData: const FlDotData(show: true),
                     ),
