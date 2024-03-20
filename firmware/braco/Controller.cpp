@@ -12,19 +12,23 @@ void ArmServo::update_status(const char* msg) {
     move_backward = !move_backward;
     move_foward = false;
   }
-
-  move();
 }
 
 void ArmServo::move() {
-  if (move_foward && position < 179) {
-    position += 2;
+  Serial.println("Begin move");
+  Serial.print("position = ");
+  Serial.println(position);
+
+  if (move_foward && position < 180) {
+    position += 1;
   }
-  if (move_backward && position > 1) {
-    position -= 2;
+  if (move_backward && position > 0) {
+    position -= 1;
   }
 
   servo.write(position);
+
+  Serial.println("End move");
 }
 
 bool ArmServo::is_stopped() {
@@ -33,14 +37,44 @@ bool ArmServo::is_stopped() {
 }
 
 void ArmServo::set_position(uint8_t pos) {
+  Serial.print("pos = ");
+  Serial.println(pos);
+  Serial.print("position = ");
+  Serial.println(position);
+
+  int16_t i = position;
+
   if (pos > position) {
-    for (uint8_t i = position; i <= pos && i <= 180; i++) {
+    Serial.println("pos > position");
+    for (; i <= pos && i <= 180; i++) {
+      Serial.print("i = ");
+      Serial.println(i);
       servo.write(i);
+      delay(25);
     }
   }
   else {
-    for (uint8_t i = position; i >= pos && i >= 0; i--) {
+    Serial.println("pos <= position");
+    int16_t i = position;
+    for (; i >= pos && i >= 0; i--) {
+      Serial.print("i = ");
+      Serial.println(i);
       servo.write(i);
+      delay(25);
     }
   }
+
+  if (i > 180) {
+    position = 180;
+  }
+  else if(i < 0) {
+    position = 0;
+  }
+  else {
+    position = pos;
+  }
+}
+
+Servo& ArmServo::get_servo() {
+  return servo;
 }

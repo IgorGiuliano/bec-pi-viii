@@ -13,16 +13,23 @@ class ArmServo {
   uint8_t position;
 
 public:
-  ArmServo(uint8_t pin, const char* bwd_msg, const char* fwd_msg)
+  ArmServo(uint8_t pin, uint8_t position, const char* bwd_msg, const char* fwd_msg)
     : servo{}, move_foward{ false }, move_backward{ false }, foward_msg{ fwd_msg }, backward_msg{ bwd_msg }, pin{ pin }, position{ 0 } {
     servo.attach(pin);
-    servo.write(0);
+    if (position > 180) {
+      this->position = 180;
+    }
+    else {
+      this->position = position;
+    }
+    servo.write(this->position);
   }
 
   void update_status(const char* msg);
   void move();
   bool is_stopped();
   void set_position(uint8_t pos);
+  Servo& get_servo();
 };
 
 #endif
